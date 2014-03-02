@@ -51,7 +51,7 @@ public class ToDoAdapter<E> extends ArrayAdapter<E>{
 			public boolean onLongClick(View view) {
 				AlertDialog delDialog = new AlertDialog.Builder(getContext()).create();
 				delDialog.setMessage("do you want to delete this task?");
-				delDialog.setTitle("Delete task");
+				delDialog.setTitle(getItem(position).toString());
 				delDialog.setButton("OK", new DialogInterface.OnClickListener() {
 					   public void onClick(DialogInterface dialog, int which) {
 						   remove(getItem(position));
