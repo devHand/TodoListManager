@@ -5,13 +5,16 @@
     <string name="action_settings">Settings</string>
     <string name="add_string">Add</string>
     <string name="hello_world">Hello world!</string>
-	<string-array name="countris">
-	    <item >israel</item>
-	</string-array>
-	<string-array name="cities">
-	    <item>jerusalem</item>
-	    <item>tel aviv</item>
-	    <item>beit el</item>
-	</string-array>
-	
+
+    <string-array name="countris">
+        <item>israel</item>
+    </string-array>
+    <string-array name="cities">
+        <item>jerusalem</item>
+        <item>tel aviv</item>
+        <item>beit el</item>
+    </string-array>
+
+    <string name="title_activity_add_new_todo_item">Add new task</string>
+
 </resources>

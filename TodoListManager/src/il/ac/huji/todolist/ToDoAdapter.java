@@ -37,7 +37,7 @@ public class ToDoAdapter<E> extends ArrayAdapter<E>{
 		}
 		if(v != null)
 		{
-			TextView title = (TextView) v.findViewById(R.id.title);
+			TextView title = (TextView) v.findViewById(R.id.txtTodoTitle);
 			title.setText(getItem(position).toString());
 			if(position%2 == 0)
 				title.setTextColor(Color.RED);

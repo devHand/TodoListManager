@@ -2,9 +2,12 @@ package il.ac.huji.todolist;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager.OnActivityResultListener;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,8 +18,8 @@ import android.widget.TextView;
 
 public class TodoListManagerActivity extends Activity {
 	
-	private ArrayList<String> toDoList;
-	private ToDoAdapter<String> adaptToDO;
+	private ArrayList<ToDoItem> toDoList;
+	private ToDoItemAdapter adaptToDO;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,11 +27,11 @@ public class TodoListManagerActivity extends Activity {
 	
 		Resources res = getResources();
 		
-		toDoList = new ArrayList<String>();
+		toDoList = new ArrayList<ToDoItem>();
 		ListView list = (ListView)findViewById(R.id.lstTodoItems);
 		
 		
-		adaptToDO = new ToDoAdapter<String>(this, 
+		adaptToDO = new ToDoItemAdapter(this, 
 												android.R.layout.simple_list_item_1, 
 												toDoList);
 		
@@ -36,6 +39,53 @@ public class TodoListManagerActivity extends Activity {
 		
 		
 		
+		
+		
+	}
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode){
+		case 42:
+			if (resultCode == RESULT_OK)
+			{
+				ToDoItem newItem = new ToDoItem(data.getStringExtra("title"),(Date)data.getExtras().get("dueDate"));
+				adaptToDO.add(newItem);
+				adaptToDO.notifyDataSetChanged();
+			}
+		}
 		
 	}
 
@@ -46,13 +96,16 @@ public class TodoListManagerActivity extends Activity {
 		return true;
 	}
 	
+
+	
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch (item.getItemId()) {
-		case R.id.menuItemAdd: TextView addtext = (TextView)findViewById(R.id.edtNewItem);
-				String txt = addtext.getText().toString();
-				adaptToDO.add(txt);
-				adaptToDO.notifyDataSetChanged();
-				addtext.setText("");
+		case R.id.menuItemAdd: 
+			Intent intent = new Intent(getApplicationContext(), AddNewTodoItemActivity.class);
+			startActivityForResult(intent, 42);
+			//in.putExtra(name, value);
+				
+//				
 		}
 		return true;
 	}
