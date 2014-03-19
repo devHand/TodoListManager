@@ -42,36 +42,7 @@ public class TodoListManagerActivity extends Activity {
 		
 		
 	}
-	@Override
-	protected void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
-	}
 	
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-	}
-	
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		
-	}
-	
-	@Override
-	protected void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
-	}
-	
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -103,7 +74,6 @@ public class TodoListManagerActivity extends Activity {
 		case R.id.menuItemAdd: 
 			Intent intent = new Intent(getApplicationContext(), AddNewTodoItemActivity.class);
 			startActivityForResult(intent, 42);
-			//in.putExtra(name, value);
 				
 //				
 		}

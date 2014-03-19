@@ -33,15 +33,15 @@
                 android:id="@+id/btnCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel" />
+                android:text="@string/cancel" />
 
             <Button
                 android:id="@+id/btnOK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OK" />
+                android:text="@string/ok" />
             
-        </LinearLayout>"
+        </LinearLayout>
         
     </LinearLayout>
 

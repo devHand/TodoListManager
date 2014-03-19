@@ -11,14 +11,6 @@
     tools:context=".TodoListManagerActivity" >
 
 
-    <TextView
-        android:layout_width="214dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="24dp"
-        android:text="To Do list:"
-        android:textSize="23sp"
-        android:textStyle="italic" />
-
     <ListView
         android:id="@+id/lstTodoItems"
         android:layout_width="wrap_content"
