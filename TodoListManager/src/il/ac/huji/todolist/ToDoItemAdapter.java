@@ -5,11 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.parse.*;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,20 +71,26 @@ public class ToDoItemAdapter extends ArrayAdapter<ToDoItem>{
 				date.setText(R.string.no_due_date);
 			}
 		}
-		
 		v.setOnLongClickListener(new android.view.View.OnLongClickListener() {
 			
 			
 			public boolean onLongClick(View view) {
+				final ToDoItem delItem = getItem(position);
 				final Dialog dialog = new Dialog(getContext());
 				dialog.setContentView(R.layout.dialog);
-				dialog.setTitle(getItem(position).getTitle());
+				dialog.setTitle(delItem.getTitle());
 				Button menuItemDelete = (Button) dialog.findViewById(R.id.menuItemDelete);
 				menuItemDelete.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
+						
+						
+
+						
 						remove(getItem(position));
+						
+						
 						dialog.dismiss();
 					}
 				});
