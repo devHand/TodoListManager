@@ -94,6 +94,8 @@ public class ToDoItemAdapter extends ArrayAdapter<ToDoItem>{
 						
 						
 						dialog.dismiss();
+
+						
 					}
 				});
 				final String title = getItem(position).getTitle();

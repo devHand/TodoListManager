@@ -9,9 +9,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class ToDoSQLite {
 	private SQLiteDatabase db;
+	private DBHelper helper;
 	
 	public ToDoSQLite(Context context){
-		DBHelper helper = new DBHelper(context);
+		helper = new DBHelper(context);
 		db = helper.getWritableDatabase();
 	}
 	
@@ -45,4 +46,8 @@ public class ToDoSQLite {
 		return db.query("todo", new String[] {"_id","title", "due"}, null, null, null, null, null);
 	}
 
+	public void close()
+	{
+		helper.close();
+	}
 }

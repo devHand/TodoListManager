@@ -51,7 +51,7 @@ public class TodoListManagerActivity extends Activity {
 		Resources res = getResources();
 		
 		ListView list = (ListView)findViewById(R.id.lstTodoItems);
-		
+			
 		toDoList = new ArrayList<ToDoItem>();
 		adaptToDO = new ToDoItemAdapter(this, 
 				android.R.layout.simple_list_item_1, 
@@ -60,8 +60,10 @@ public class TodoListManagerActivity extends Activity {
 		list.setAdapter(adaptToDO);
 		
 		sqlite = new ToDoSQLite(getApplicationContext());
-		loader = new LoadListAsync(getApplicationContext(), adaptToDO);
+		loader = new LoadListAsync(sqlite, adaptToDO);
 		loader.execute();
+		
+		
 		
 		//cursor = sqlite.getTableCursor();
 		//DBAdapter = new ItemCursorAdapter( this, cursor);
@@ -84,17 +86,24 @@ public class TodoListManagerActivity extends Activity {
 		case 42:
 			if (resultCode == RESULT_OK)
 			{
-				ToDoItem newItem = new ToDoItem(data.getStringExtra("title"),(Date)data.getExtras().get("dueDate"));
+				
 
 				
 				//SQLite:
-				sqlite.addItem(newItem);
+//				ToDoItem newItem = new ToDoItem(data.getStringExtra("title"),(Date)data.getExtras().get("dueDate"));
+//				sqlite.addItem(newItem);
+//				loader = new LoadListAsync(getApplicationContext(), adaptToDO);
+//				loader.execute();
+				
+				//adding the new item to DB and get an object with its auto id to add to list
+				ToDoItem newItemDirect = sqlite.addAndReturnItem(data.getStringExtra("title"),(Date)data.getExtras().get("dueDate"));
+				adaptToDO.add(newItemDirect);
+				adaptToDO.notifyDataSetChanged();
 				
 //				cursor = sqlite.getTableCursor();
 //				DBAdapter.swapCursor(cursor);
 //				DBAdapter.notifyDataSetChanged();
-				loader = new LoadListAsync(getApplicationContext(), adaptToDO);
-				loader.execute();
+
 				//parse:
 				//ToDoParse.addItem(newItem);
 					
@@ -125,4 +134,11 @@ public class TodoListManagerActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		sqlite.close();
+		super.onDestroy();
+		
+	}
 }
