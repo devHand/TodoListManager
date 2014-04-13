@@ -35,10 +35,11 @@ import android.widget.TextView;
 
 public class TodoListManagerActivity extends Activity {
 	
-	//private ArrayList<ToDoItem> toDoList;
-	//private ToDoItemAdapter adaptToDO;
+	private ArrayList<ToDoItem> toDoList;
+	private ToDoItemAdapter adaptToDO;
 	private ItemCursorAdapter DBAdapter;
 	private Cursor cursor;
+	LoadListAsync loader;
 	
 	private ToDoSQLite sqlite;
 	
@@ -46,18 +47,27 @@ public class TodoListManagerActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_todo_list_manager);
-
-		ParseAnalytics.trackAppOpened(getIntent());
 		
 		Resources res = getResources();
 		
 		ListView list = (ListView)findViewById(R.id.lstTodoItems);
 		
-		sqlite = new ToDoSQLite(getApplicationContext());
-		cursor = sqlite.getTableCursor();
-		DBAdapter = new ItemCursorAdapter( this, cursor);
+		toDoList = new ArrayList<ToDoItem>();
+		adaptToDO = new ToDoItemAdapter(this, 
+				android.R.layout.simple_list_item_1, 
+				toDoList);
+
+		list.setAdapter(adaptToDO);
 		
-		list.setAdapter(DBAdapter); 
+		sqlite = new ToDoSQLite(getApplicationContext());
+		loader = new LoadListAsync(getApplicationContext(), adaptToDO);
+		loader.execute();
+		
+		//cursor = sqlite.getTableCursor();
+		//DBAdapter = new ItemCursorAdapter( this, cursor);
+		
+		
+		//list.setAdapter(DBAdapter); 
 
 		
 		
@@ -80,13 +90,13 @@ public class TodoListManagerActivity extends Activity {
 				//SQLite:
 				sqlite.addItem(newItem);
 				
-				cursor = sqlite.getTableCursor();
-				DBAdapter.swapCursor(cursor);
-				DBAdapter.notifyDataSetChanged();
-				
-				
+//				cursor = sqlite.getTableCursor();
+//				DBAdapter.swapCursor(cursor);
+//				DBAdapter.notifyDataSetChanged();
+				loader = new LoadListAsync(getApplicationContext(), adaptToDO);
+				loader.execute();
 				//parse:
-				ToDoParse.addItem(newItem);
+				//ToDoParse.addItem(newItem);
 					
 
 				

@@ -22,15 +22,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class ToDoItemAdapter extends ArrayAdapter<ToDoItem>{
+	private ToDoSQLite sqlit;
 	public ToDoItemAdapter(Context context, int textViewResourceId,
 			ToDoItem[] objects) {
         super(context, textViewResourceId, objects);
-        
+        sqlit = new ToDoSQLite(context);
     }
 	
 	public ToDoItemAdapter(Context context, int textViewResourceId,
             List<ToDoItem> objects) {
         super(context, textViewResourceId, objects);
+        sqlit = new ToDoSQLite(context);
     }
 
     public View getView(final int position, final View convertView, final ViewGroup parent){
@@ -87,7 +89,7 @@ public class ToDoItemAdapter extends ArrayAdapter<ToDoItem>{
 						
 						
 
-						
+						sqlit.deleteItem(getItem(position).getId());
 						remove(getItem(position));
 						
 						
